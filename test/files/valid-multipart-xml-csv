@@ -1,0 +1,13 @@
+--uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50
+Content-Type: text/xml
+
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body /></S:Envelope>
+--uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50
+Content-Id:<parameters=b67c4f2f-bff7-44c1-865f-3fcafdaed638@example.com>
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: binary
+
+"first_name","last_name","preferred_name"
+"david", "looi", "dave"
+
+--uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50--

@@ -1,5 +1,4 @@
-require "http_multipart_parser/version"
+# frozen_string_literal: true
 
-module HttpMultipartParser
-  # Your code goes here...
-end
+require 'http_multipart_parser/version'
+require 'http_multipart_parser/response'
