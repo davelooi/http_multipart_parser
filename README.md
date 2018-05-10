@@ -22,7 +22,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Initialise the object with body of http response
+```ruby
+response = HttpMultipartParser::Response.new(http_body)
+```
+
+Get an array of Part objects
+```ruby
+parts = response.parts
+```
+
+Each of the Part object contain headers and body
+```ruby
+part[0].headers
+# => {"Content-Type"=>"text/xml"}
+
+part[0].body
+# => "<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body /></S:Envelope>"
+```
 
 ## Development
 
