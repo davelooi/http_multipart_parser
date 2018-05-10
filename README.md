@@ -48,3 +48,7 @@ parts = response.parts
 csv_part = parts.detect { |p| p.headers["Content-Type"] == "application/octet-stream" }
 puts csv_part.body
 ```
+
+## Reference
+
+This gem is built based on this [RFC1341(MIME)](https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html).
