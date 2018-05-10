@@ -11,7 +11,11 @@ module HttpMultipartParser
       end
 
       it 'has 2 parts' do
-        assert_equal 2, @response.parts
+        assert_equal 2, @response.parts.count
+      end
+
+      it 'has a boundary' do
+        assert_equal '--uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50', @response.boundary
       end
     end
   end
