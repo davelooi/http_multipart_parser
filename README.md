@@ -1,54 +1,50 @@
-# HttpMultipartParser
+# HTTP Multipart Parser
 
 [![Build Status](https://travis-ci.org/davelooi/http_multipart_parser.svg?branch=master)](https://travis-ci.org/davelooi/http_multipart_parser)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/http_multipart_parser`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'http_multipart_parser'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install http_multipart_parser
+Use this gem to parse multipart messages into coherent Ruby-flavoured pieces.
 
 ## Usage
 
-Initialise the object with body of http response
-```ruby
-response = HttpMultipartParser::Response.new(http_body)
-```
+Imagine your API vendor returns you a multipart body that looks like this:
 
-Get an array of Part objects
+    --uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50
+    Content-Type: text/xml
+
+    <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body /></S:Envelope>
+    --uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50
+    Content-Id:<parameters=b67c4f2f-bff7-44c1-865f-3fcafdaed638@example.com>
+    Content-Type: application/octet-stream
+    Content-Transfer-Encoding: binary
+
+    "first_name","last_name","preferred_name"
+    "david", "looi", "dave"
+
+    --uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50--
+
+But you only care about that CSV data near the bottom. How on earth are you supposed to process this?
+
+Like this!
+
 ```ruby
+input = %(
+--uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50
+Content-Type: text/xml
+
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body /></S:Envelope>
+--uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50
+Content-Id:<parameters=b67c4f2f-bff7-44c1-865f-3fcafdaed638@example.com>
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: binary
+
+"first_name","last_name","preferred_name"
+"david", "looi", "dave"
+
+--uuid:0909325b-5e74-44eb-9a5e-4c7067f14c50--
+)
+
+response = HttpMultipartParser::Response.new(input)
 parts = response.parts
+csv_part = parts.detect { |p| p.headers["Content-Type"] == "application/octet-stream" }
+puts csv_part.body
 ```
-
-Each of the Part object contain headers and body
-```ruby
-part[0].headers
-# => {"Content-Type"=>"text/xml"}
-
-part[0].body
-# => "<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body /></S:Envelope>"
-```
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/http_multipart_parser.
