@@ -3,7 +3,8 @@
 module HttpMultipartParser
   class Response
     def initialize(http_body)
-      @http_body = http_body
+      # make sure newline is \n
+      @http_body = http_body.encode(http_body.encoding, universal_newline: true)
     end
 
     def parts

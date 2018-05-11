@@ -1,0 +1,12 @@
+--uuid:4e63c9b1-2114-4921-9c22-043383db828b
+Content-Type: text/xml
+
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope />
+--uuid:4e63c9b1-2114-4921-9c22-043383db828b
+Content-Id:<parameters=b67c4f2f-bff7-44c1-865f-3fcafdaed638@example.com>
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: binary
+
+"second_name","name","fancy_name"
+
+--uuid:4e63c9b1-2114-4921-9c22-043383db828b--
