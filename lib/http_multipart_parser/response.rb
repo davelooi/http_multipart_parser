@@ -12,9 +12,9 @@ module HttpMultipartParser
 
     def boundary
       # the first line with --
-      @http_body.split("\n").find do |line|
+      @http_body.lines.find do |line|
         line.start_with?('--')
-      end
+      end.strip
     end
   end
 end
