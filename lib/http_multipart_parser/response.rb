@@ -17,5 +17,9 @@ module HttpMultipartParser
         line.start_with?('--')
       end.strip
     end
+
+    def part_by_content_type(content_type)
+      parts.detect { |p| p.headers['Content-Type'] == content_type }
+    end
   end
 end

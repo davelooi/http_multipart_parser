@@ -21,14 +21,14 @@ module HttpMultipartParser
       it 'first part body is xml' do
         assert_equal(
           "<?xml version='1.0' encoding='UTF-8'?><S:Body />",
-          @response.parts[0].body
+          @response.part_by_content_type('text/xml').body
         )
       end
 
       it 'second part body is csv' do
         assert_equal(
           '"first_name","last_name","preferred_name"',
-          @response.parts[1].body
+          @response.part_by_content_type('application/octet-stream').body
         )
       end
     end
@@ -50,14 +50,14 @@ module HttpMultipartParser
       it 'first part body is xml' do
         assert_equal(
           "<?xml version='1.0' encoding='UTF-8'?><S:Envelope />",
-          @response.parts[0].body
+          @response.part_by_content_type('text/xml').body
         )
       end
 
       it 'second part body is csv' do
         assert_equal(
           '"second_name","name","fancy_name"',
-          @response.parts[1].body
+          @response.part_by_content_type('application/octet-stream').body
         )
       end
     end
