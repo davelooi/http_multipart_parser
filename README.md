@@ -44,9 +44,7 @@ Content-Transfer-Encoding: binary
 )
 
 response = HttpMultipartParser::Response.new(input)
-parts = response.parts
-csv_part = parts.detect { |p| p.headers["Content-Type"] == "application/octet-stream" }
-puts csv_part.body
+puts response.part_by_content_type('application/octet-stream').body
 ```
 
 ## Reference
